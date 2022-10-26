@@ -1,0 +1,4 @@
+{
+  "mongoURL": "mongodb://localhost:27017/urlshort",
+  "baseURL": "http://localhost:8000"
+}

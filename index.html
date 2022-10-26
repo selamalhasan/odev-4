@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Sortner</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .content {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 70px;
+      }
+      .input {
+        background-color: #fff;
+        min-height: 30px;
+        min-width: 500px;
+        font-size: 14pt;
+        border-radius: 25px;
+      }
+
+      .button {
+        margin-top: 10px;
+        float: right;
+        background-color: rgb(0, 0, 0);
+        color: white;
+        height: 30px;
+        cursor: pointer;
+      }
+      .view{
+        margin-top: 10px;
+        float: left;
+        background-color: rgb(0, 0, 0);
+        color: white;
+        height: 30px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <input
+        class="input"
+        type="text"
+        placeholder="Type URL"
+        id="urlInput"
+      />
+      <button class="button" id="btn">Submit</button>
+    </div>
+    <div class="content">
+      <a target="_blank" href="" class="view"></a>
+    </div>
+
+    <script type="text/javascript">
+      $("#btn").click(function () {
+        $.ajax({
+          url: "/api/url/shorten",
+          dataType: "json",
+          type: "post",
+          data: JSON.stringify({ longUrl: $("#urlInput").val() }),
+          contentType: "application/json",
+          success: function (data, textStatus, jQxhr) {
+            $(".view").html(data.shotUrl);
+            $(".view").attr("href", data.longUrl);
+          },
+          error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
